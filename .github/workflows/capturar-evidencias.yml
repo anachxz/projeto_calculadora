@@ -1,0 +1,79 @@
+name: Capturar evidencias reais
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/capturar-evidencias.yml']
+permissions:
+  contents: write
+jobs:
+  capturar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Preparar terminal grafico
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xterm xvfb imagemagick fonts-dejavu-core
+      - name: Executar testes das duas versoes e capturar o terminal
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/calculadora-antes/src/calculadora /tmp/calculadora-antes/test/calculadora
+          git show c783b53a5e73130639e7af9862c6d5d2396e079a:src/calculadora/Calculadora.java > /tmp/calculadora-antes/src/calculadora/Calculadora.java
+          git show c783b53a5e73130639e7af9862c6d5d2396e079a:test/calculadora/TesteCalculadora.java > /tmp/calculadora-antes/test/calculadora/TesteCalculadora.java
+          javac -encoding UTF-8 -d /tmp/calculadora-antes/bin /tmp/calculadora-antes/src/calculadora/*.java /tmp/calculadora-antes/test/calculadora/*.java
+          javac -encoding UTF-8 -Xlint:all -d bin src/calculadora/*.java test/calculadora/*.java
+          for fase in antes depois; do
+            if [ "$fase" = antes ]; then classes=/tmp/calculadora-antes/bin; else classes="$PWD/bin"; fi
+            export FASE="$fase" CLASSES="$classes" PROJETO="$PWD"
+            xvfb-run -a -s '-screen 0 1600x1200x24' bash <<'CAPTURA'
+          set -euo pipefail
+          marcador="/tmp/fim-$FASE"
+          rm -f "$marcador"
+          export MARCADOR="$marcador"
+          xterm -hold -geometry 150x50+0+0 -fa 'DejaVu Sans Mono' -fs 12 -bg '#101722' -fg '#e5edf5' -e bash -c '
+            echo "FinancApp | TESTES $FASE DA REFATORACAO | GitHub Actions"
+            echo "$ java -cp bin calculadora.TesteCalculadora"
+            java -cp "$CLASSES" calculadora.TesteCalculadora
+            status=$?
+            echo "Codigo de saida: $status"
+            printf "%s" "$status" > "$MARCADOR"
+          ' &
+          terminal_pid=$!
+          for tentativa in $(seq 1 30); do
+            [ -f "$marcador" ] && break
+            sleep 1
+          done
+          test -f "$marcador"
+          test "$(cat "$marcador")" = 0
+          sleep 1
+          import -window root "$PROJETO/images/testes/$FASE.png"
+          kill "$terminal_pid" || true
+          CAPTURA
+          done
+      - name: Gerar JavaDoc e capturar pagina no Chrome
+        run: |
+          sh gerar-docs.sh
+          google-chrome --headless --no-sandbox --disable-gpu --hide-scrollbars --allow-file-access-from-files --window-size=1440,1400 --virtual-time-budget=3000 --screenshot="$PWD/images/javadoc/calculadora.png" "file://$PWD/docs/calculadora/Calculadora.html"
+          google-chrome --headless --no-sandbox --disable-gpu --hide-scrollbars --allow-file-access-from-files --window-size=1440,1000 --virtual-time-budget=3000 --screenshot="$PWD/images/javadoc/index.png" "file://$PWD/docs/index.html"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prints-reais
+          path: images/
+      - name: Registrar capturas reais
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/testes/antes.png images/testes/depois.png images/javadoc/calculadora.png images/javadoc/index.png
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: adicionar capturas reais do terminal e JavaDoc"
+            git push origin HEAD:main
+          fi
