@@ -147,7 +147,7 @@ Foram executados **23 casos, todos aprovados, antes e depois da refatoração**.
 
 Registros completos: [antes](evidencias/testes-antes.txt), [depois](evidencias/testes-depois.txt) e [execução do console](evidencias/console.txt).
 
-As imagens abaixo são renderizações dos registros reais de execução, não capturas do terminal. Para atender literalmente ao requisito de prints da atividade, substitua-as por capturas do seu terminal após executar `testar.bat`.
+As imagens abaixo são capturas reais de um terminal gráfico (xterm), executando os testes em Ubuntu no GitHub Actions com Java 17. A versão inicial e a refatorada foram compiladas e executadas separadamente. O código de saída 0 indica sucesso.
 
 ![Execução dos testes antes da refatoração](images/testes/antes.png)
 
@@ -179,9 +179,13 @@ javadoc -quiet -Xdoclint:all -private -author -version -encoding UTF-8 -docencod
 
 A opção `-private` inclui atributos e métodos auxiliares, com suas exceções documentadas. `calc` captura as exceções esperadas internamente; os métodos privados documentam `@throws` para os erros que lançam.
 
-A imagem abaixo é uma renderização estática do HTML gerado. Para a entrega, acrescente uma captura de `docs/index.html` aberto no seu navegador.
+As imagens abaixo são capturas reais do Google Chrome abrindo o JavaDoc gerado. A primeira mostra a página inicial, acessada por `docs/index.html`; a segunda mostra a classe `Calculadora`.
 
-![Prévia estática do JavaDoc](images/javadoc/calculadora.png)
+![Página inicial do JavaDoc aberta no Chrome](images/javadoc/index.png)
+
+![Classe Calculadora no JavaDoc aberta no Chrome](images/javadoc/calculadora.png)
+
+Capturas produzidas pela [execução automatizada de evidências](https://github.com/anachxz/projeto_calculadora/actions/runs/40388464065). O workflow `.github/workflows/capturar-evidencias.yml`, disponível na branch `main`, permite repetir o processo.
 
 ## 13. Repositório e referências
 
