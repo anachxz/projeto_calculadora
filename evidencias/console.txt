@@ -1,0 +1,15 @@
+FinançApp | Calculadora de inteiros
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Erro: divisão por zero.
+Resultado = 0
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Resultado = 8
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Erro: operação inválida. Use +, -, * ou /.
+Resultado = 0
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Erro: informe inteiros entre -2147483648 e 2147483647.
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Resultado = 3
+Digite: primeiro operador segundo (ex.: 5 + 3), ou sair
+Programa encerrado.
