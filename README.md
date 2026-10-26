@@ -7,10 +7,10 @@
 **Projeto:** projeto_calculadora  
 **Contexto:** FinançApp  
 **Aluna:** Ana Clara dos Reis Bauer Cesar  
-**RA:** A preencher pela aluna antes da entrega  
+**RA:** 252578  
 **Curso:** Análise e Desenvolvimento de Sistemas — FACENS  
 **Disciplina:** UX/UI e Testes de Software  
-**Professor:** A confirmar pela aluna  
+**Professor:** Daniel Ohata  
 **Semestre:** 2026.2
 
 ## 2. Visão Geral
@@ -189,4 +189,4 @@ A imagem abaixo é uma renderização estática do HTML gerado. Para a entrega, 
 
 Estrutura das seções 1 a 8 adaptada do [modelo de README indicado na atividade](https://github.com/dr-ohata/calculadora_refatoracao/blob/main/README.md), consultado em 26/10/2026. Referências da disciplina: aula 09 (refatoração e documentação), aula 10 (caixa branca) e aula 11 (caixa cinza).
 
-Antes da entrega acadêmica, preencher o RA e confirmar o nome do professor na seção 1. A aluna deve revisar, executar e compreender o código para apresentar o trabalho individualmente.
+A aluna deve revisar, executar e compreender o código para apresentar o trabalho individualmente.
