@@ -1,0 +1,42 @@
+CT01 | 5 + 3 | esperado=8 | obtido=8 | OK
+CT02 | 10 - 4 | esperado=6 | obtido=6 | OK
+CT03 | 6 * 7 | esperado=42 | obtido=42 | OK
+CT04 | 20 / 4 | esperado=5 | obtido=5 | OK
+CT05 | 10 / 0 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: divisão por zero.
+  Mensagem obtida:   Erro: divisão por zero. | Resultado = 0
+CT06 | 2 % 3 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: operação inválida. Use +, -, * ou /.
+  Mensagem obtida:   Erro: operação inválida. Use +, -, * ou /. | Resultado = 0
+CT07 | 7 / 2 | esperado=3 | obtido=3 | OK
+CT08 | -7 / 2 | esperado=-3 | obtido=-3 | OK
+CT09 | -5 + 3 | esperado=-2 | obtido=-2 | OK
+CT10 | 3 - 5 | esperado=-2 | obtido=-2 | OK
+CT11 | -6 * 7 | esperado=-42 | obtido=-42 | OK
+CT12 | 0 / 5 | esperado=0 | obtido=0 | OK
+CT13 | 0 / 0 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: divisão por zero.
+  Mensagem obtida:   Erro: divisão por zero. | Resultado = 0
+CT14 | 2 null 3 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: operação inválida. Use +, -, * ou /.
+  Mensagem obtida:   Erro: operação inválida. Use +, -, * ou /. | Resultado = 0
+CT15 | 2  3 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: operação inválida. Use +, -, * ou /.
+  Mensagem obtida:   Erro: operação inválida. Use +, -, * ou /. | Resultado = 0
+CT16 | 2147483647 + 1 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: resultado fora do intervalo de int.
+  Mensagem obtida:   Erro: resultado fora do intervalo de int. | Resultado = 0
+CT17 | -2147483648 - 1 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: resultado fora do intervalo de int.
+  Mensagem obtida:   Erro: resultado fora do intervalo de int. | Resultado = 0
+CT18 | 2147483647 * 2 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: resultado fora do intervalo de int.
+  Mensagem obtida:   Erro: resultado fora do intervalo de int. | Resultado = 0
+CT19 | -2147483648 / -1 | esperado=0 | obtido=0 | OK
+  Mensagem esperada: Erro: resultado fora do intervalo de int.
+  Mensagem obtida:   Erro: resultado fora do intervalo de int. | Resultado = 0
+CT20 | 2147483647 + 0 | esperado=2147483647 | obtido=2147483647 | OK
+CT21 | -2147483648 / 1 | esperado=-2147483648 | obtido=-2147483648 | OK
+CT22 | 0 * 7 | esperado=0 | obtido=0 | OK
+CT23 | 9 / 3 | esperado=3 | obtido=3 | OK
+TOTAL: 23 | APROVADOS: 23 | FALHAS: 0
